@@ -43,6 +43,22 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
+        <!-- ================= REDIS (ADDED) ================= -->
+
+        <!-- Spring Data Redis Reactive -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
+
+        <!-- Lettuce Core (Redis client) -->
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+        </dependency>
+
+        <!-- ================= JWT ================= -->
+
         <!-- JWT (JJWT) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -62,7 +78,8 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Testing -->
+        <!-- ================= TESTING ================= -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -97,5 +114,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

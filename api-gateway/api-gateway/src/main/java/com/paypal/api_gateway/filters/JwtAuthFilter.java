@@ -44,6 +44,8 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             exchange.getRequest()
                     .mutate()
                     .header("X-User-Email", claims.getSubject())
+                    .header("X-User-Id", claims.get("userId", String.class))
+                    .header("X-User-Role", claims.get("role", String.class))
                     .build();
 
             return chain.filter(exchange);
@@ -56,6 +58,6 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return -1; // High priority
+        return -100; // High priority
     }
 }
