@@ -21,7 +21,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   user-service:
-    build: ./user-service
+    build: ./user-service/user-service
     ports:
       - "8081:8081"
     depends_on:
