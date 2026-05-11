@@ -1,0 +1,29 @@
+server:
+  port: 8082
+services:
+  wallet:
+    base-url: http://localhost:8083
+spring:
+  application:
+    name: transaction-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/transaction_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+outbox:
+  publisher:
+    fixed-delay-ms: 5000

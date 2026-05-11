@@ -1,46 +1,52 @@
 package com.paypal.transaction_service.dto;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
+
 public class TransferRequest {
 
+    // senderId should normally come from authenticated context/header
     private Long senderId;
-    private Long receiverId;
-    private Double amount;
 
+    @NotNull(message = "receiverId is required")
+    private Long receiverId;
+
+    @NotNull(message = "amount is required")
+    @DecimalMin(value = "0.01", message = "amount must be greater than 0")
+    private BigDecimal amount;
 
     public TransferRequest() {
     }
 
-    public TransferRequest(Long senderId, Long receiverId, Double amount,
-                           String senderNameSnapshot, String receiverNameSnapshot) {
+    public TransferRequest(Long senderId, Long receiverId, BigDecimal amount) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.amount = amount;
     }
 
-    // Getters
     public Long getSenderId() {
         return senderId;
+    }
+
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
     public Long getReceiverId() {
         return receiverId;
     }
 
-    public Double getAmount() {
-        return amount;
-    }
-
-    // Setters
-    public void setSenderId(Long senderId) {
-        this.senderId = senderId;
-    }
-
     public void setReceiverId(Long receiverId) {
         this.receiverId = receiverId;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 }

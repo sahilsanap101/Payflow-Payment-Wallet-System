@@ -1,4 +1,4 @@
-package com.paypal.transaction_service.dto.dto;
+package com.paypal.transaction_service.dto;
 
 public class WalletResponse {
 
@@ -8,20 +8,54 @@ public class WalletResponse {
     private Long balance;
     private Long availableBalance;
 
-    public WalletResponse() {}
+    public WalletResponse() {
+    }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public WalletResponse(Long id, Long userId, String currency, Long balance, Long availableBalance) {
+        this.id = id;
+        this.userId = userId;
+        this.currency = currency;
+        this.balance = balance;
+        this.availableBalance = availableBalance;
+    }
 
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getCurrency() { return currency; }
-    public void setCurrency(String currency) { this.currency = currency; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getBalance() { return balance; }
-    public void setBalance(Long balance) { this.balance = balance; }
+    public Long getUserId() {
+        return userId;
+    }
 
-    public Long getAvailableBalance() { return availableBalance; }
-    public void setAvailableBalance(Long availableBalance) { this.availableBalance = availableBalance; }
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Long balance) {
+        this.balance = balance;
+    }
+
+    public Long getAvailableBalance() {
+        return availableBalance;
+    }
+
+    public void setAvailableBalance(Long availableBalance) {
+        this.availableBalance = availableBalance;
+    }
 }

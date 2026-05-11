@@ -1,44 +1,45 @@
 package com.paypal.transaction_service.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import jakarta.validation.constraints.Positive;
-
-
 
 @Entity
-@Table(name = "transaction")
-
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Sender id is required")
     @Column(nullable = false)
     private Long senderId;
 
+    @NotNull(message = "Receiver id is required")
     @Column(nullable = false)
     private Long receiverId;
 
+    @NotNull(message = "Amount is required")
+    @DecimalMin(value = "0.01", message = "Amount must be greater than zero")
+    @Column(nullable = false, precision = 19, scale = 2)
+    private BigDecimal amount;
 
-    @Column(nullable = false)
-    @Positive(message = "Amount must be positive")
-    private Double amount;
-
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime timestamp;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Status is required")
+    @Column(nullable = false, length = 30)
     private String status;
 
-    public Transaction() {}
+    public Transaction() {
+    }
 
-    public Transaction(Long senderId, Long receiverId,
-                       String senderNameSnapshot, String receiverNameSnapshot,
-                       Double amount, LocalDateTime timestamp, String status) {
+    public Transaction(Long senderId, Long receiverId, BigDecimal amount, LocalDateTime timestamp, String status) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.amount = amount;
@@ -51,12 +52,11 @@ public class Transaction {
         if (timestamp == null) {
             timestamp = LocalDateTime.now();
         }
-        if (status == null) {
-            status = "PENDING";
+        if (status == null || status.isBlank()) {
+            status = "INITIATED";
         }
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -68,6 +68,7 @@ public class Transaction {
     public Long getSenderId() {
         return senderId;
     }
+
     public void setSenderId(Long senderId) {
         this.senderId = senderId;
     }
@@ -75,20 +76,23 @@ public class Transaction {
     public Long getReceiverId() {
         return receiverId;
     }
+
     public void setReceiverId(Long receiverId) {
         this.receiverId = receiverId;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
-    public void setAmount(Double amount) {
+
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
+
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
@@ -96,6 +100,7 @@ public class Transaction {
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
